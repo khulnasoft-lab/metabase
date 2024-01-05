@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { t } from "ttag";
+import { getSetting } from "metabase/selectors/settings";
 import { useSelector } from "metabase/lib/redux";
 import { getApplicationName } from "metabase/selectors/whitelabel";
 import { Icon } from "metabase/core/components/Icon";
@@ -45,15 +46,17 @@ export const EmbedModal = ({
     goBackToEmbedModal: () => void;
   }) => JSX.Element;
 } & WindowModalProps) => {
+  const shouldShowEmbedTerms = !useSelector(state =>
+    getSetting(state, "hide-static-embed-terms"),
+  );
+
   const [embedType, setEmbedType] = useState<EmbedModalStep>(null);
   const applicationName = useSelector(getApplicationName);
 
   const goToNextStep = () => {
-    if (embedType === null) {
+    if (embedType === null && shouldShowEmbedTerms) {
       setEmbedType("legalese");
-    }
-
-    if (embedType === "legalese") {
+    } else {
       setEmbedType("application");
     }
   };

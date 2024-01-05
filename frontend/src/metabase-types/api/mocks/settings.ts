@@ -164,6 +164,7 @@ export const createMockSettings = (
   engines: createMockEngines(),
   "has-user-setup": true,
   "hide-embed-branding?": true,
+  "hide-static-embed-terms": false,
   "ga-enabled": false,
   "google-auth-auto-create-accounts-domain": null,
   "google-auth-client-id": null,
