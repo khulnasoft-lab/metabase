@@ -633,6 +633,12 @@
   [graph]
   graph)
 
+(defenterprise add-sandboxes-to-permissions-graph
+  "Augment the permissions graph with active connection impersonation policies. OSS implementation returns graph as-is."
+  metabase-enterprise.sandbox.models.group-table-access-policy
+  [graph]
+  graph)
+
 (defn- post-process-graph [graph]
   (->>
    graph
@@ -650,6 +656,7 @@
               (all-permissions db-ids)
               (:db permissions-graph)))))
        post-process-graph
+       add-sandboxes-to-permissions-graph
        add-impersonations-to-permissions-graph))
 
 (defn ->v1-paths
