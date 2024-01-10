@@ -2,7 +2,7 @@ import type { Dashboard } from "metabase-types/api";
 import type { EmbedOptions } from "metabase-types/store";
 import { useDispatch, useSelector } from "metabase/lib/redux";
 import * as Urls from "metabase/lib/urls";
-import { EmbedModal } from "metabase/public/components/widgets/EmbedModal";
+import { EmbedModal } from "metabase/public/components/EmbedModal";
 import EmbedModalContent from "metabase/public/components/widgets/EmbedModalContent";
 import { getParameters } from "metabase/dashboard/selectors";
 
@@ -43,12 +43,13 @@ export const DashboardSharingEmbeddingModal = (
 
   return (
     <EmbedModal isOpen={isOpen} onClose={onClose}>
-      {({ embedType, setEmbedType }) => (
+      {({ embedType, goToNextStep, goBackToEmbedModal }) => (
         <EmbedModalContent
           {...props}
           isLinkEnabled={isLinkEnabled ?? true}
           embedType={embedType}
-          setEmbedType={setEmbedType}
+          goToNextStep={goToNextStep}
+          goBackToEmbedModal={goBackToEmbedModal}
           className={className}
           resource={dashboard}
           resourceParameters={parameters}
